@@ -18,6 +18,7 @@ class C:
     c4: List[int]
     c5: dict
     c6: list
+    c7: float
 
     def test(self):
         print("hi")
@@ -41,7 +42,8 @@ class TestMapperr(TestCase):
 
         self.c = C()
         self.c.c1, self.c.c2, self.c.c3, self.c.c4, self.c.c5, self.c.c6 = "text", 1, [self.b, self.b2], [1,2], {"msg": "hello"}, ["x", "y", "z"]
-        self.cd = {'c1': 'text', 'c2': 1, 'c3': [{'b1': 'text', 'b2': 1, 'b3': {'a1': 'text', 'a2': 1}}, {'b1': 'text2', 'b2': 1, 'b3': {'a1': 'text2', 'a2': 1}}], 'c4': [1, 2], 'c5': {'msg': 'hello'}, 'c6': ['x', 'y', 'z']}
+        self.c.c7 = 3.14
+        self.cd = {'c1': 'text', 'c2': 1, 'c3': [{'b1': 'text', 'b2': 1, 'b3': {'a1': 'text', 'a2': 1}}, {'b1': 'text2', 'b2': 1, 'b3': {'a1': 'text2', 'a2': 1}}], 'c4': [1, 2], 'c5': {'msg': 'hello'}, 'c6': ['x', 'y', 'z'], 'c7' : 3.14}
 
     def test_todict_level1(self):
         self.assertEqual(to_dict(self.a), self.ad)
