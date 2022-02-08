@@ -8,12 +8,12 @@ with open(os.path.join(HERE, "README.md")) as fid:
 
 setup(
     name="mapperr",
-    version="0.0.3",
+    version="0.0.5",
     description="mapperr for mapping across dict and object, recursively",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/mujdecisy/mapperr",
-    keywords=["python", "mapper"],
+    keywords=["python", "mapper", "recursive mapping"],
     author="mujdecisy",
     author_email="mujdecisy@gmail.com",
     classifiers=[
@@ -21,7 +21,5 @@ setup(
     ],
     packages=["mapperr"],
     include_package_data=True,
-    install_requires=[
-        "importlib"
-    ]
+    install_requires=[]
 )
