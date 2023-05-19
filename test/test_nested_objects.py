@@ -20,23 +20,20 @@ class C:
     c6: list
     c7: float
 
-    def test(self):
-        print("hi")
 
-
-class TestMapperr(TestCase):
+class TestNestedObjects(TestCase):
     def setUp(self) -> None:
         self.a = A()
         self.a.a1, self.a.a2 = "text", 1
         self.ad = {"a1": "text", "a2": 1}
-        
+
         self.a2 = A()
         self.a2.a1, self.a2.a2 = "text2", 1
 
         self.b = B()
         self.b.b1, self.b.b2, self.b.b3 = "text", 1, self.a
         self.bd = {'b1': 'text', 'b2': 1, 'b3': {'a1': 'text', 'a2': 1}}
-        
+
         self.b2 = B()
         self.b2.b1, self.b2.b2, self.b2.b3 = "text2", 1, self.a2
 

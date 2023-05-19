@@ -15,7 +15,7 @@ pip3 install dist/mapperr-0.0.1-py3-none-any.whl
 ```
 
 ## Usage
-Your classes' attributes are needed to be annotated with their types like `int`, `str`, `Book`, `List[Book]`. Parameterized constructors are not suitable, you can use it with plain objects which has most trash work.
+Your classes' attributes are needed to be annotated with their types like `int`, `str`, `Book`, `List[Book]`. Parameterized constructors are not suitable, you can use it with plain objects which has most trash work. You can also fill your required options with param `op_required` as string list.
 
 **`to_obj( dict_data: dict, destination_class: Type ) -> object`**
 
@@ -30,6 +30,7 @@ from mapperr import to_dict, to_obj
 class Book:
     _id: int
     title: str
+    op_required: list = ['_id', 'title']
 
 class BookShelf:
     code: str
