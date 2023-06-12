@@ -75,7 +75,8 @@ __prm = {
     int: "int",
     float: "float",
     dict: "dict",
-    list: "list"
+    list: "list",
+    bool: "bool"
 }
 
 def __simport(module_and_class: str):

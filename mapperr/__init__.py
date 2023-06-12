@@ -1,5 +1,9 @@
 from mapperr.mapr import _maprit
 
+def to_dict( src: object ) -> dict:
+    des = {}
+    return _maprit(src, des, src.__class__)
+
 def to_obj( src: dict, root_class: type) -> object:
     des: object = root_class()
     required_variables = getattr(des, 'op_required', [])
@@ -9,10 +13,6 @@ def to_obj( src: dict, root_class: type) -> object:
     res.__setattr__('op_required', required_variables)
     __check_required(res, root_class)
     return res
-
-def to_dict( src: object ) -> dict:
-    des = {}
-    return _maprit(src, des, src.__class__)
 
 def obj_to_obj( src: object, dest_class: type ) -> object:
     d = to_dict(src)
