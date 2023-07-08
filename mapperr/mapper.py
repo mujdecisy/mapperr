@@ -56,6 +56,10 @@ class _Mapper:
                 mapped_item = []
                 for list_element in src:
                     mapped_item.append(self.map(list_element, blueprint.__args__[0]))
+            if blueprint.__name__ == "Dict" and isinstance(src, dict):
+                mapped_item = {}
+                for key, value in src.items():
+                    mapped_item[self.map(key, blueprint.__args__[0])] = self.map(value, blueprint.__args__[1])
             else:
                 warnings.warn(
                     f"Type {blueprint.__name__} not allowed OR value {type(src).__name__} not matched with type"
