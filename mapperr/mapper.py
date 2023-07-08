@@ -37,6 +37,18 @@ class _Mapper:
             self.__all_classes.add(class_definition)
         return local_classs_definition
 
+    def __get_all_annotations(self, class_definition: type) -> dict:
+        classes = [class_definition]
+        while classes[0].__name__ != 'object':
+            classes.insert(0, classes[0].__base__)
+        del classes[0]
+
+        annotations = {}
+        for a_class in classes:
+            annotations.update(a_class.__annotations__)
+
+        return annotations
+
     def map(self, src: Union[dict, object, None], blueprint: type):
         self.__add_class(blueprint)
         mapped_item = None
@@ -70,7 +82,10 @@ class _Mapper:
                 if self.__direction == MappingDirection.DICT_TO_OBJECT
                 else {}
             )
-            for key, type_ in blueprint.__annotations__.items():
+
+            annotations = self.__get_all_annotations(blueprint)
+
+            for key, type_ in annotations.items():
                 value = self.__read(src, key)
                 class_def = self.__add_class(type_)
                 self.__write(mapped_item, key, self.map(value, class_def))

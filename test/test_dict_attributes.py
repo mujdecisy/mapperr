@@ -5,7 +5,7 @@ from typing import Dict
 class A:
     a1: Dict[str, int]
 
-class TestUnmatchedTypes(TestCase):
+class TestDictAttributes(TestCase):
     def setUp(self) -> None:
         self.a = A()
         self.a.a1 = {"apple": 5, "banana": 6}
