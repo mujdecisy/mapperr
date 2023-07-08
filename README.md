@@ -88,3 +88,14 @@ lib.book_shelfs[0].books.append(new_book)
 
 send_library_to_the_source( to_dict(lib) )
 ```
+
+You can add your `recursive` type definitions into your class by using string variables.
+
+```python
+class Person:
+    name: str
+    identity: int
+    mother: 'Person'
+    father: 'Person'
+    friends: List['Person']
+```

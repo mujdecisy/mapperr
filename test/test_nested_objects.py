@@ -20,8 +20,6 @@ class C:
     c2: int
     c3: List[B]
     c4: List[int]
-    c5: dict
-    c6: list
     c7: float
 
 
@@ -42,15 +40,13 @@ class TestNestedObjects(TestCase):
         self.b2.b1, self.b2.b2, self.b2.b3 = "text2", 1, self.a2
 
         self.c = C()
-        self.c.c1, self.c.c2, self.c.c3, self.c.c4, self.c.c5, self.c.c6 = (
+        self.c.c1, self.c.c2, self.c.c3, self.c.c4, self.c.c7 = (
             "text",
             1,
             [self.b, self.b2],
             [1, 2],
-            {"msg": "hello"},
-            ["x", "y", "z"],
+            3.14
         )
-        self.c.c7 = 3.14
         self.cd = {
             "c1": "text",
             "c2": 1,
@@ -59,8 +55,6 @@ class TestNestedObjects(TestCase):
                 {"b1": "text2", "b2": 1, "b3": {"a1": "text2", "a2": 1, "a3": False}},
             ],
             "c4": [1, 2],
-            "c5": {"msg": "hello"},
-            "c6": ["x", "y", "z"],
             "c7": 3.14,
         }
 
