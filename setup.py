@@ -8,7 +8,7 @@ with open(os.path.join(HERE, "README.md")) as fid:
 
 setup(
     name="mapperr",
-    version="0.2.2",
+    version="0.2.3",
     description="mapperr for mapping across dict and object, recursively",
     long_description=README,
     long_description_content_type="text/markdown",
