@@ -40,6 +40,7 @@ class _Mapper:
     def __get_all_annotations(self, class_definition: type) -> dict:
         classes = [class_definition]
         while classes[0].__name__ != 'object':
+            self.__add_class(classes[0].__base__)
             classes.insert(0, classes[0].__base__)
         del classes[0]
 
