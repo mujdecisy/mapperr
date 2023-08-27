@@ -1,6 +1,6 @@
 import warnings
 from typing import MutableSet, Union
-from mapperr.util import MappingDirection, SourceIsNoneError, NOT_ALLOWED_BUILTINS
+from mapperr.util import MappingDirection, NOT_ALLOWED_BUILTINS
 
 
 class _Mapper:
@@ -39,7 +39,7 @@ class _Mapper:
 
     def __get_all_annotations(self, class_definition: type) -> dict:
         classes = [class_definition]
-        while classes[0].__name__ != 'object':
+        while classes[0].__name__ != "object":
             self.__add_class(classes[0].__base__)
             classes.insert(0, classes[0].__base__)
         del classes[0]
@@ -50,17 +50,27 @@ class _Mapper:
 
         return annotations
 
+    @staticmethod
+    def __process_builtin_instance(src: object, blueprint: type):
+        if blueprint.__name__ in NOT_ALLOWED_BUILTINS:
+            return None
+
+        new_src = None
+        if isinstance(src, int) and blueprint == float:
+            new_src = float(src)
+        elif isinstance(src, blueprint):
+            new_src = src
+
+        return new_src
+
     def map(self, src: Union[dict, object, None], blueprint: type):
         self.__add_class(blueprint)
         mapped_item = None
         if src is None:
             mapped_item = None
         elif blueprint.__module__ == "builtins":
-            if blueprint.__name__ not in NOT_ALLOWED_BUILTINS and isinstance(
-                src, blueprint
-            ):
-                mapped_item = src
-            else:
+            mapped_item = _Mapper.__process_builtin_instance(src, blueprint)
+            if mapped_item == None:
                 warnings.warn(
                     f"Type {blueprint.__name__} not allowed OR value {type(src).__name__} not matched with type"
                 )
@@ -69,10 +79,12 @@ class _Mapper:
                 mapped_item = []
                 for list_element in src:
                     mapped_item.append(self.map(list_element, blueprint.__args__[0]))
-            if blueprint.__name__ == "Dict" and isinstance(src, dict):
+            elif blueprint.__name__ == "Dict" and isinstance(src, dict):
                 mapped_item = {}
                 for key, value in src.items():
-                    mapped_item[self.map(key, blueprint.__args__[0])] = self.map(value, blueprint.__args__[1])
+                    mapped_item[self.map(key, blueprint.__args__[0])] = self.map(
+                        value, blueprint.__args__[1]
+                    )
             else:
                 warnings.warn(
                     f"Type {blueprint.__name__} not allowed OR value {type(src).__name__} not matched with type"
